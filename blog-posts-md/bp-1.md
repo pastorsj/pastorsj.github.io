@@ -64,11 +64,24 @@ and redirect a chosen Domain name to that server.
 
 ### Connecting your application to a Public URL using Amazon's Route 53 service
 Amazon has made it very easy to test and create public url's for $12 a year. You are welcome to get a url on another site, but make sure that you associate that url
-with the Elastic IP address created in Step #__
+with the Elastic IP address created in Step 5
 
-More to come..
+1. To register a new url, follow these [instructions](https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/domain-register.html) on the aws documents
+2. Associate the url with your website. See these [instructions](https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/rrsets-working-with.html)
+  * Note: Once your domain name is registered, you will receive an email from most likely *noreply@registrar.amazon.com*
+  * This piece of [documentation](https://docs.aws.amazon.com/gettingstarted/latest/swh/getting-started-configure-route53.html) is also very helpful for setting up record sets
+3. Once you have a hosted zone with your personal url, click on the record set and note the *Type* of the record. Click on the *A* record and note the *Value* field
+4. Navigate back to the EC2 management console
+5. Click on the *Elastic IP* link at the bottom left of the screen.
+6. Click on *Allocate New Address*
+7. Make sure the IP is selected, and then click on the *Actions* button, and click *Associate Address*.
+8. In the *Instance* field, type in the Public DNS that identifies your EC2 instance.
+  * The Public DNS id is of the form: *ec2-[ip-address]-.compute-1.amazonaws.com*
+9. Once you have associated the Elastic IP address to your instance, copy that IP address into the *Value* field you found in step 3
+10. Finally, navigate to your url, and hopefully, you will see the output of the website.
 
-Cited Sources
+### Cited Sources
 [AWS Documentation](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EC2_GetStarted.html)
-[Code for Geek](https://codeforgeek.com/2015/05/setup-node-development-environment-amazon-ec2/) => How to setup a developer environment in an Amazon EC2 instance
-[Ben Nadal](http://www.bennadel.com/blog/2321-how-i-got-node-js-running-on-a-linux-micro-instance-using-amazon-ec2.htm) => Setting up a NodeJS application on an EC2 instance
+[Code for Geek](https://codeforgeek.com/2015/05/setup-node-development-environment-amazon-ec2/)
+[Ben Nadal](http://www.bennadel.com/blog/2321-how-i-got-node-js-running-on-a-linux-micro-instance-using-amazon-ec2.htm)
+[AWS Route 53](https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/getting-started.html)
