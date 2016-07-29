@@ -21,6 +21,12 @@
 
 	<!-- CSS Just for demo purpose, don't include it in your project -->
 	<link href="assets/css/demo.css" rel="stylesheet" />
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+	<script> 
+		$(function(){
+			$("#blogpost").load("BlogPost1.html"); 
+		});
+	</script>
 
 </head>
 
@@ -83,36 +89,7 @@
 		<div class="section section-basic">
       <div class="container">
         <div class="title">
-          <h2>Today's Topic</h2>
-
-		  <h3>Deploying a website on an EC2 instance in AWS</h3>
-
-			<p class="text-primary">By Sam Pastoriza on July 27, 2016</p>
-
-			<p class="text-info">Today, I successfully deployed my first website on public domain, which happened to 
-			be my personal website. This is also my first blog post because I have also finally gotten around to 
-			making a blog documenting my experiences in the programming world. I hope you enjoy these articles as 
-			I enjoy experiencing them. Now, lets get to the important stuff.</p>
-
-			<p>I am going to discuss how to launch a NodeJS application, specifically written with the Angular 2 framework on the front end
-			and the Express framework on the backend. This post applies to anyone who wants to deploy a Node application on an Linux box
-			and redirect a chosen Domain name to that server.</p>
-
-			<ol>
-			<li>Create a AWS Account if you have not already</li>
-			<li>Create a Key Pair</li>
-			<li>Go to the <a href="https://console.aws.amazon.com/console/home?region=us-east-1">AWS Managment Console</a></li>
-			<li>Choose to run a EC2 instance</li>
-			<li>Click <code>Launch Instance</code></li>
-			<li>Once you click <code>Launch Instance</code>, choose <code>Amazon Linux</code>.
-			<ul><li>This is a general purpose empty Linux box that AWS supports.</li></ul></li>
-			<li>Once you select the Ubuntu box, choose the t2.micro option, which is 8Gb, plenty for deploying general purpose Node applications</li>
-			<li>Click next until you reach the <code>Configure Security Group</code> tab. </li>
-			<li>On the <code>Configure Security Group</code> tab, make sure to add a rule and change the rule from <code>Custom TCP Rule</code> to <code>HTTP</code>. This should default the Port number to 80.</li>
-			<li>Before launching the instance, make sure you associate the Key Pair you created with the </li>
-			<li>Once the instance has been launched, go ahead and ssh into the instance using your generated key pair.</li>
-			</ol>
-      <p>More to come...</p>
+		  <div id="blogpost"></div>
         </div>
       </div>
     </div>
