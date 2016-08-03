@@ -44,7 +44,7 @@ and redirect a chosen Domain name to that server.
     * NodeJS
     * NVM (Node Version Manager)
     * NPM
-  The first two lines update and install pacakages on the server. Lines 2-6 install Node using nvm. Lines 7-8 are `very` important because they redirect
+  The first two lines update and install pacakages on the server. Lines 2-6 install Node using nvm. Lines 7-8 are *very* important because they redirect
   any http requests to port 3000. Port 80 is the default port, but Express applications cannot listen to port 80. Feel free to change this number as your application
   sees fit. 
 
