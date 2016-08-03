@@ -50,7 +50,7 @@ and redirect a chosen Domain name to that server.
 
 13. Once the essential items are installed for running a node application, you can either
   1. Clone an existing project and start running it
-  2. Using `express-generator`, create an simple express application
+  2. Using *express-generator*, create an simple express application
     * Run this set of commands to create an express application
       ```
       npm install -g express-generator
@@ -60,7 +60,7 @@ and redirect a chosen Domain name to that server.
       npm start
       ```
     * Hopefully, you will see that the application is listening to a port, most likely 3000
-14. If you navigate to your `Public DNS` in your browser, you should see your application displayed.
+14. If you navigate to your *Public DNS* in your browser, you should see your application displayed.
 
 ### Connecting your application to a Public URL using Amazon's Route 53 service
 Amazon has made it very easy to test and create public url's for $12 a year. You are welcome to get a url on another site, but make sure that you associate that url

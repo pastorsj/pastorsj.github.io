@@ -15,8 +15,8 @@ function addStyles(html) {
   html = html.replace(/<h4>/g, '<h4 class="text-primary">')
   html = html.replace(/<h5>/g, '<h5 class="text-muted">')
   html = html.replace(/<h6>/g, '<h6 class="text-muted">')
-  html = html.replace(/<code>/g, '<code><pre>')
-  html = html.replace(/<\/code>/g, '</pre></code>')
+  html = html.replace(/<code>/g, '<pre>')
+  html = html.replace(/<\/code>/g, '</pre>')
   return html
 }
 
