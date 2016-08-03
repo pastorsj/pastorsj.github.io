@@ -5,6 +5,7 @@ const fs = require('fs')
 const path = require('path')
 
 function addStyles(html) {
+  // Replaces any links in the Cited Sources sections with labels
   let citedSourcesStr = html.search(/<p><a href=".*?">.*?<\/a>[\s\S]*<\/p>/)
   let newCitedSourcesStr = html.substring(citedSourcesStr).replace(/<a href/g, '<a class="label label-info" href')
   html = html.replace(/<p><a href=".*?">.*?<\/a>[\s\S]*<\/p>/, newCitedSourcesStr)
@@ -35,4 +36,18 @@ function convert(postPath) {
   }
 }
 
-convert(path.join(__dirname, 'blog-posts-md', 'bp-1.md'))
+function convertAllMDFiles() {
+  try {
+    let files = fs.readdirSync(path.join(__dirname, 'blog-posts-md'))
+    files.forEach((file) => {
+      let stats = fs.statSync(path.join(__dirname, 'blog-posts-md', file))
+      if (stats.isFile() && file.endsWith('.md')) {
+        convert(path.join(__dirname, 'blog-posts-md', file))
+      }
+    })
+  } catch (e) {
+    throw new Error(e)
+  }
+}
+
+convertAllMDFiles()
