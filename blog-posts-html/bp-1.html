@@ -1,52 +1,78 @@
-<h3 class="text-primary">Deploying a website on an EC2 instance in AWS</h3>
+<h3 class="text-primary">Web Development IDE&#39;s</h3>
 
-<h5 class="text-muted">By Sam Pastoriza on July 27, 2016</h5>
+<h4 class="text-primary">Powerful vs Fast?</h4>
 
-<p>Today, I successfully deployed my first website on public domain, which happened to 
-be my personal website. This is also my first blog post because I have also finally gotten around to 
-making a blog documenting my experiences in the programming world. I hope you enjoy these articles as 
-I enjoy experiencing them. Now, lets get to the important stuff.</p>
+<h5 class="text-muted">By Sam Pastoriza on August 9, 2016</h5>
 
-<p>I am going to discuss how to launch a NodeJS application, specifically written with the Angular 2 framework on the front end
-and the Express framework on the backend. This post applies to anyone who wants to deploy a Node application on an Linux box
-and redirect a chosen Domain name to that server.</p>
+<p>Does a fast and responsive IDE neccesarily mean it is not powerful?</p>
 
-<ol><li>Create a AWS Account if you have not already</li><li>Create a Key Pair.<ul><li>This is a very straightforward process well documented by Amazon Web Services. This key-pair will be used to ssh into the linux box, so it is important that you keep the key in a secure place.</li><li>Documentation on process can be found <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-key-pairs.html">here</a></li><li>Make sure to run <em>chmod 400 &lt;your-key&gt;.pem</em></li></ul></li><li>Go to the <a href="https://console.aws.amazon.com/console/home?region=us-east-1">AWS Managment Console</a></li><li>Choose to run a EC2 instance</li><li>Click <em>Launch Instance</em></li><li>Once you click <em>Launch Instance</em>, choose <em>Amazon Linux</em>.<ul><li>This is a general purpose empty Linux box that AWS supports.</li></ul></li><li>Once you select the Ubuntu box, choose the t2.micro option, which is 8Gb, plenty for deploying general purpose Node applications</li><li>Click next until you reach the <em>Configure Security Group</em> tab. </li><li>On the <em>Configure Security Group</em> tab, make sure to add a rule and change the rule from <em>Custom TCP Rule</em> to <em>HTTP</em>. This should default the Port number to 80.</li><li>Before launching the instance, make sure you associate the Key Pair you created with the </li><li>Once the instance has been launched, go ahead and ssh into the instance using your generated key pair.</li><li><p>Run the following commands to update your Linux box and install NodeJS and Git
-<pre>
-sudo yum update
-sudo yum install git
-wget -qO- https://raw.githubusercontent.com/creationix/nvm/v0.31.1/install.sh | bash
-source ~/.profile
-. ~/.nvm/nvm.sh
-nvm install 5.11.0
-modprobe ip_tables
-iptables -t nat -A PREROUTING -p tcp --dport 80 -j REDIRECT --to 3000
-echo &quot;source ~/.bashrc&quot; &gt;&gt; ~/.bash_profile
-echo &#39;export NVM_DIR=&quot;$HOME/.nvm&#39; &gt;&gt; ~/.bashrc
-echo &#39;[ -s &quot;$NVM_DIR/nvm.sh&quot; ] &amp;&amp; . &quot;$NVM_DIR/nvm.sh&#39; &gt;&gt; ~/.bashrc
-</pre>
-At this point, you should have the following installed</p><ul><li>Git</li><li>NodeJS</li><li>NVM (Node Version Manager)</li><li><p>NPM
-The first two lines update and install pacakages on the server. Lines 2-6 install Node using nvm. Lines 7-8 are <em>very</em> important because they redirect
-any http requests to port 3000. Port 80 is the default port, but Express applications cannot listen to port 80. Feel free to change this number as your application
-sees fit. </p></li></ul></li><li><p>Once the essential items are installed for running a node application, you can either</p><ol><li>Clone an existing project and start running it</li><li>Using <em>express-generator</em>, create an simple express application<ul><li>Run this set of commands to create an express application
-<pre>
-npm install -g express-generator
-express your-application
-cd your-application
-npm install
-npm start
-</pre></li><li>Hopefully, you will see that the application is listening to a port, most likely 3000</li></ul></li></ol></li><li>If you navigate to your <em>Public DNS</em> in your browser, you should see your application displayed.</li></ol>
+<p>Can you make it powerful with addons like code completion syntax highlighting?</p>
 
-<h3 class="text-primary">Connecting your application to a Public URL using Amazon&#39;s Route 53 service</h3>
+<p>These are a few of the questions being asked by young developers when they are choosing the perfect
+ide for their next project. In my case, my focus is on full stack development, where I care about everything
+from stored procedures in SQL databases to optimizing SASS code on the front end. Everything from those two 
+extremes must be encompassed in my perfect IDE. </p>
 
-<p>Amazon has made it very easy to test and create public url&#39;s for $12 a year. You are welcome to get a url on another site, but make sure that you associate that url
-with the Elastic IP address created in Step 5</p>
+<p>Many developers want a fast, responsive, and powerful IDE for development. Their is no perfect environment for 
+developers because the possibilites out there are endless. The three standard options for a web developer like 
+myself are</p>
 
-<ol><li>To register a new url, follow these <a href="https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/domain-register.html">instructions</a> on the aws documents</li><li>Associate the url with your website. See these <a href="https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/rrsets-working-with.html">instructions</a><ul><li>Note: Once your domain name is registered, you will receive an email from most likely <em>noreply@registrar.amazon.com</em></li><li>This piece of <a href="https://docs.aws.amazon.com/gettingstarted/latest/swh/getting-started-configure-route53.html">documentation</a> is also very helpful for setting up record sets</li></ul></li><li>Once you have a hosted zone with your personal url, click on the record set and note the <em>Type</em> of the record. Click on the <em>A</em> record and note the <em>Value</em> field</li><li>Navigate back to the EC2 management console</li><li>Click on the <em>Elastic IP</em> link at the bottom left of the screen.</li><li>Click on <em>Allocate New Address</em></li><li>Make sure the IP is selected, and then click on the <em>Actions</em> button, and click <em>Associate Address</em>.</li><li>In the <em>Instance</em> field, type in the Public DNS that identifies your EC2 instance.<ul><li>The Public DNS id is of the form: <em>ec2-[ip-address]-.compute-1.amazonaws.com</em></li></ul></li><li>Once you have associated the Elastic IP address to your instance, copy that IP address into the <em>Value</em> field you found in step 3</li><li>Finally, navigate to your url, and hopefully, you will see the output of the website.</li></ol>
+<ol><li>[Jetbrain&#39;s WebStorms]</li><li>[Vim]</li><li>[Microsoft&#39;s Visual Code]</li></ol>
 
-<h3 class="text-primary">Cited Sources</h3>
+<p>These range from full blown separate applications to terminal editors. Lets discuss all three options.</p>
 
-<p><a class="label label-info" href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EC2_GetStarted.html">AWS Documentation</a>
-<a class="label label-info" href="https://codeforgeek.com/2015/05/setup-node-development-environment-amazon-ec2/">Code for Geek</a>
-<a class="label label-info" href="http://www.bennadel.com/blog/2321-how-i-got-node-js-running-on-a-linux-micro-instance-using-amazon-ec2.htm">Ben Nadal</a>
-<a class="label label-info" href="https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/getting-started.html">AWS Route 53</a></p>
+<h3 class="text-primary">WebStorms</h3>
+
+<p>Webstorms is a pure JavaScript IDE made by Jetbrains. When you download it, which by the way, it is not free, but I have
+a student license, it has out of the box support for syntav highlighting and code completion for node and angular 1 and 2. 
+Similar to the rest of the Jetbrains products, including Intellij IDEA, it has support for refactoring code and has a built in terminal. 
+It does not end there. </p>
+
+<p>List all the important features that Webstorms contains.
+1.
+2.
+3.</p>
+
+<p>The fact that you can use only Webstorms and develop almost any Javascript based program ever is extremely impressive. For me, 
+the framework support is the most important. This summer, I am working as an intern at Ciena, and there they are using EmberJS, which 
+is a open source MVC Javascript framework. I can never remember every method associated with Ember store object or what options are availible 
+when I am writing a serializer, but Webstorms provides that support. I can simply install the Ember plugin for Webstorms and off I go. 
+Webstorms is definitely the way to go if your looking for an all in one solution. </p>
+
+<p>The few problems that I find with Webstorms is</p>
+
+<ol><li>The amount of CPU usage is off the charts. Since Webstorms is an all in one solution, it takes up much of the CPU and many computers just 
+can&#39;t handle it running full steam.</li><li>I don&#39;t think I will ever manage to utilize all of Webstorms capabilities. There is so much packed into the IDE that many features that I 
+could use to speed up development I won&#39;t every know exist.</li></ol>
+
+<p>Overall, this is a solid IDE that any programmer could use and enjoy. So why would someone not want to use this IDE? For most of the all in one
+solutions, there is a lot of movement using the mouse, which wastes valuable time in some peoples mind. Many programmers would ultimately prefer
+to keep their hands on the keyboard and use keyboard shortcuts to navigate the code. Enter Vim...</p>
+
+<h3 class="text-primary">Vim</h3>
+
+<p>Vim is the ultimate command line editor. Others include <em>nano</em>, <em>less</em>, and <em>emacs</em>. Vim is powered by the open source community with its thousands of
+possible plugins for code schemes and code completion tools. The main feature of Vim is its keyboard shortcuts. The learning curve of Vim is ridiculous, 
+sometimes taking years to master it. But once a master of Vim, always a master of Vim. Masters of Vim can write code faster than anyone skilled with
+a mouse and Webstorms. You can setup a Vim IDE with a strong set of plugins and go to work in no time. It is universal to operating systems and almost 
+neccesary for server side programming.</p>
+
+<p>I have personally used Vim and for a week, I programmed only using Vim. I did not get much done, so in my spare time, I had to constantly remind myself 
+of all the shortcuts and features that Vim has to offer. I do have a .vimrc on my GitHub that contains what I thought was the neccesary tools for 
+developing using Vim.</p>
+
+<p>Advantages of Vim</p>
+
+<ol><li>Once you have mastered Vim, you can essentially program anything from anywhere at the fastest speed. If you need to update some code on a server, you can 
+be working on it in seconds. Webstorms does not allow the user to open up any code on a server.</li><li>Plugins are easy to add once you have the right plugin loader installed (I use Vundle). It is as easy as adding a line of code to your .vimrc</li><li>Similarly to the plugins idea, the editor is full cusotmizable, and you can easily create your own plugins using the Viml language.</li><li>It is very lightweight on the CPU.</li></ol>
+
+<p>Disadvantages of Vim</p>
+
+<ol><li>The learning curve is ridiculous. That is all.</li></ol>
+
+<p>Vim is for the adventurous who have time and and good typists. I didn&#39;t have much time, but it is a skill I am still attempting to learn.</p>
+
+<p>So there must be a middle ground, an IDE which is lightweight, has good plugin support, and is powerful. I find that in Visual Code. Many others find
+this middle ground in Sublime Text and Atom. Visual Code just appeals to me more, but the advantages and disadvantages apply to both.</p>
+
+<h3 class="text-primary">Visual Code</h3>

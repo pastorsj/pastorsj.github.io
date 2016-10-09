@@ -30,11 +30,11 @@ and redirect a chosen Domain name to that server.
   sudo yum update
   sudo yum install git
   wget -qO- https://raw.githubusercontent.com/creationix/nvm/v0.31.1/install.sh | bash
-  source ~/.profile
+  source ~/.bash_profile
   . ~/.nvm/nvm.sh
   nvm install 5.11.0
-  modprobe ip_tables
-  iptables -t nat -A PREROUTING -p tcp --dport 80 -j REDIRECT --to 3000
+  sudo modprobe ip_tables
+  sudo iptables -t nat -A PREROUTING -p tcp --dport 80 -j REDIRECT --to 3000
   echo "source ~/.bashrc" >> ~/.bash_profile
   echo 'export NVM_DIR="$HOME/.nvm' >> ~/.bashrc
   echo '[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh' >> ~/.bashrc
