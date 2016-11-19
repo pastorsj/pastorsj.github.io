@@ -44,17 +44,35 @@
 	    	<a href="http://sampastoriza.com">
 	        	<div class="logo-container">
 	                <div class="logo">
-	                    <img src="assets/img/logo.png" alt="Sam Pastoriza Logo" rel="tooltip" title="<b>Material Kit</b> was Designed & Coded with care by the staff from <b>Creative Tim</b>" data-placement="bottom" data-html="true">
+	                    <img src="assets/img/logo.jpg" alt="Sam Pastoriza Logo">
 	                </div>
 	                <div class="brand">
 	                    Sam Pastoriza
 	                </div>
-				    </div>
+				</div>
 	      	</a>
 	    </div>
 
+
+
 	    <div class="collapse navbar-collapse" id="navigation-index">
 	    	<ul class="nav navbar-nav navbar-right">
+				<li>
+					<a href="#" class="dropdown-toggle" data-toggle="dropdown">
+						Articles
+						<b class="caret"></b>
+					</a>
+					<ul class="dropdown-menu">
+						<li class="dropdown-header">Blog Posts</li>
+						<li class="bp" id="bp-1"><a href="#">AWS Deployment</a></li>
+						<li class="bp" id="bp-2"><a href="#">IDE's</a></li>
+					</ul>
+					<script>
+						$(".bp").click(function() {
+							$("#blogpost").load("blog-posts-html/" + this.id + ".html")
+						})
+					</script>
+				</li>
 				<li>
 					<a href="http://sampastoriza.com" target="_blank">
 						<i class="material-icons">language</i> View my website

@@ -22,6 +22,7 @@ function addStyles(html) {
 }
 
 function convert(postPath) {
+  const htmlFile = path.basename(postPath).slice(0, -3) + '.html'
   let file
   try {
     file = fs.readFileSync(postPath).toString()
@@ -30,7 +31,7 @@ function convert(postPath) {
   }
   file = addStyles(markdown.toHTML(file))
   try {
-    fs.writeFileSync(path.join(__dirname, 'blog-posts-html', 'bp-1.html'), file)
+    fs.writeFileSync(path.join(__dirname, 'blog-posts-html', htmlFile), file)
   } catch (e) {
     throw new Error(e)
   }
